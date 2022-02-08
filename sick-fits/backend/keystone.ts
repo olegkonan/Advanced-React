@@ -50,7 +50,7 @@ export default withAuth(
       ProductImage,
     }),
     ui: {
-      isAccessAllowed: ({ session }) => !!session?.data,
+      isAccessAllowed: () => true,
     },
     session: withItemData(statelessSessions(sessionConfig), {
       User: 'id',
