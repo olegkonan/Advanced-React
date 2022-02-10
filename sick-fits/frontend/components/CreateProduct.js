@@ -32,7 +32,7 @@ const CREATE_PRODUCT_MUTATION = gql`
 
 export default function CreateProduct() {
   const { inputs, handleChange, clearFrom, resetFrom } = useForm();
-  const [createProduct, { data, loading, error }] = useMutation(
+  const [createProduct, { loading, error }] = useMutation(
     CREATE_PRODUCT_MUTATION,
     {
       variables: inputs,
@@ -42,7 +42,7 @@ export default function CreateProduct() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await createProduct();
+    const { data } = await createProduct();
     clearFrom();
     Router.push({
       pathname: `/product/${data.createProduct.id}`,
