@@ -1,7 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function useFrom(init = {}) {
   const [inputs, setInputs] = useState(init);
+  const initialValues = Object.values(init).join(' ');
+
+  useEffect(() => {
+    setInputs(init);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialValues]);
 
   function handleChange(e) {
     let { value, name, type } = e.target;
@@ -21,7 +27,7 @@ export default function useFrom(init = {}) {
 
   function clearFrom() {
     const blankState = Object.fromEntries(
-      Object.entries(inputs).map(([key]) => [key, null])
+      Object.entries(inputs).map(([key]) => [key, ''])
     );
     setInputs(blankState);
   }

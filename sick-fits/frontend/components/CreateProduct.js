@@ -1,34 +1,10 @@
-import gql from 'graphql-tag';
 import { useMutation } from '@apollo/client';
 import Router from 'next/router';
 import useForm from '../lib/useForm';
 import Form from './styles/Form';
 import DisplayError from './ErrorMessage';
-import { ALL_PRODUCTS_QUERY } from './Products';
-
-const CREATE_PRODUCT_MUTATION = gql`
-  mutation CREATE_PRODUCT_MUTATION(
-    $name: String!
-    $description: String!
-    $price: Int!
-    $image: Upload
-  ) {
-    createProduct(
-      data: {
-        name: $name
-        description: $description
-        price: $price
-        status: "AVALIABLE"
-        photo: { create: { image: $image, altText: $name } }
-      }
-    ) {
-      id
-      name
-      price
-      description
-    }
-  }
-`;
+import { CREATE_PRODUCT_MUTATION } from '../graphql/mutations';
+import { ALL_PRODUCTS_QUERY } from '../graphql/queries';
 
 export default function CreateProduct() {
   const { inputs, handleChange, clearFrom, resetFrom } = useForm();
