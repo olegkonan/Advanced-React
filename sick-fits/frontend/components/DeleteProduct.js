@@ -28,6 +28,6 @@ export default function DeleteProduct({ id, children }) {
 }
 
 DeleteProduct.propTypes = {
-  id: PropType.number,
+  id: PropType.string,
   children: PropType.node,
 };
