@@ -95,6 +95,23 @@ export const REQUEST_RESET_MUTATION = gql`
   }
 `;
 
+export const RESET_MUTATION = gql`
+  mutation RESET_MUTATION(
+    $email: String!
+    $token: String!
+    $password: String!
+  ) {
+    redeemUserPasswordResetToken(
+      email: $email
+      token: $token
+      password: $password
+    ) {
+      code
+      message
+    }
+  }
+`;
+
 export const SIGNOUT_MUTATION = gql`
   mutation SIGNOUT_MUTATION {
     endSession
