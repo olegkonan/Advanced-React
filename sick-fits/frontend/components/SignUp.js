@@ -30,6 +30,17 @@ export default function SignUp() {
         </p>
       )}
       <fieldset disabled={loading} aria-busy={loading}>
+        <label htmlFor="name">
+          Name
+          <input
+            type="text"
+            name="name"
+            id="name"
+            autoComplete="name"
+            value={inputs.name}
+            onChange={handleChange}
+          />
+        </label>
         <label htmlFor="email">
           Email
           <input
@@ -38,17 +49,6 @@ export default function SignUp() {
             id="email"
             autoComplete="email"
             value={inputs.email}
-            onChange={handleChange}
-          />
-        </label>
-        <label htmlFor="name">
-          Email
-          <input
-            type="text"
-            name="name"
-            id="name"
-            autoComplete="name"
-            value={inputs.name}
             onChange={handleChange}
           />
         </label>

@@ -86,6 +86,15 @@ export const SIGNUP_MUTATION = gql`
   }
 `;
 
+export const REQUEST_RESET_MUTATION = gql`
+  mutation REQUEST_RESET_MUTATION($email: String!) {
+    sendUserPasswordResetLink(email: $email) {
+      message
+      code
+    }
+  }
+`;
+
 export const SIGNOUT_MUTATION = gql`
   mutation SIGNOUT_MUTATION {
     endSession
