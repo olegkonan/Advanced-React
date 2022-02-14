@@ -20,7 +20,6 @@ export function CartItem({ cartItem }) {
   const { product } = cartItem;
 
   if (!product) return null;
-  console.log(product);
 
   return (
     <CartItemStyles>

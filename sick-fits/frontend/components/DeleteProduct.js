@@ -3,7 +3,6 @@ import PropType from 'prop-types';
 import { DELETE_PRODUCT_MUTATION } from '../graphql/mutations';
 
 const update = (cache, payload) => {
-  console.log(cache, payload);
   cache.evict(cache.identify(payload.data.deleteProduct));
 };
 export default function DeleteProduct({ id, children }) {

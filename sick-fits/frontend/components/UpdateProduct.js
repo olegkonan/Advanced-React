@@ -19,7 +19,6 @@ export default function UpdateProduct({ id }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log({ inputs });
     await updateProduct({
       variables: {
         id,
