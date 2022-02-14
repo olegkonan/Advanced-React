@@ -1,8 +1,9 @@
 import Link from 'next/link';
+import PropTypes from 'prop-types';
 import ItemStyles from './styles/ItemStyles';
 import Title from './styles/Title';
 import PriceTag from './styles/PriceTag';
-import FormatMoney from '../lib/formatMoney';
+import { formatMoney } from '../lib/formatMoney';
 import DeleteProduct from './DeleteProduct';
 
 export default function Product({ product }) {
@@ -17,7 +18,7 @@ export default function Product({ product }) {
       <Title>
         <Link href={`/product/${product.id}`}>{product.name}</Link>
       </Title>
-      <PriceTag>{FormatMoney(product.price)}</PriceTag>
+      <PriceTag>{formatMoney(product.price)}</PriceTag>
       <p>{product.description}</p>
       <div className="buttonList">
         <Link
@@ -35,3 +36,7 @@ export default function Product({ product }) {
     </ItemStyles>
   );
 }
+
+Product.propTypes = {
+  product: PropTypes.any,
+};
