@@ -2,7 +2,7 @@ import { useMutation } from '@apollo/client';
 import { SIGNOUT_MUTATION } from '../graphql/mutations';
 import { CURRENT_USER_QUERY } from '../graphql/queries';
 
-export default function SignOut({ children }) {
+export default function SignOut() {
   const [signout] = useMutation(SIGNOUT_MUTATION, {
     refetchQueries: [{ query: CURRENT_USER_QUERY }],
   });
@@ -13,3 +13,5 @@ export default function SignOut({ children }) {
     </button>
   );
 }
+
+SignOut.propTypes = {};
