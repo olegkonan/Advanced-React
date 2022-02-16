@@ -1,4 +1,5 @@
 import { useMutation, useQuery } from '@apollo/client';
+import PropTypes from 'prop-types';
 import { UPDATE_PRODUCT_MUTATION } from '../graphql/mutations';
 import { SINGLE_PRODUCT_QUERY } from '../graphql/queries';
 import useFrom from '../lib/useForm';
@@ -78,3 +79,7 @@ export default function UpdateProduct({ id }) {
     </Form>
   );
 }
+
+UpdateProduct.propTypes = {
+  id: PropTypes.string,
+};

@@ -3,6 +3,7 @@ import { useLazyQuery } from '@apollo/client';
 import { resetIdCounter, useCombobox } from 'downshift';
 import debounce from 'lodash.debounce';
 import { useRouter } from 'next/dist/client/router';
+import { useCallback } from 'react';
 import { SEARCH_PRODUCTS_QUERY } from '../graphql/queries';
 import { DropDown, DropDownItem, SearchStyles } from './styles/DropDown';
 
@@ -12,12 +13,12 @@ export function Search() {
     fetchPolicy: 'no-cache',
   });
   const items = data?.result || [];
-  const searchItemsWithDebounce = debounce(searchItems, 350);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const searchItemsWithDebounce = useCallback(debounce(searchItems, 300), []);
 
   resetIdCounter();
   const {
     isOpen,
-    inputValue,
     getMenuProps,
     getInputProps,
     getComboboxProps,
@@ -25,12 +26,10 @@ export function Search() {
     highlightedIndex,
   } = useCombobox({
     items,
-    onInputValueChange() {
-      searchItemsWithDebounce({ variables: { search: inputValue } });
-    },
-    onSelectedItemChange({ selectedItem }) {
-      router.push({ pathname: `/product/${selectedItem.id}` });
-    },
+    onInputValueChange: ({ inputValue }) =>
+      searchItemsWithDebounce({ variables: { search: inputValue } }),
+    onSelectedItemChange: ({ selectedItem }) =>
+      router.push({ pathname: `/product/${selectedItem.id}` }),
     itemToString: (item) => item?.name || '',
   });
 
