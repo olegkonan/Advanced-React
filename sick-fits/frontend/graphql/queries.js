@@ -68,3 +68,22 @@ export const CURRENT_USER_QUERY = gql`
     }
   }
 `;
+
+export const SEARCH_PRODUCTS_QUERY = gql`
+  query SEARCH_PRODUCTS_QUERY($search: String!) {
+    result: allProducts(
+      where: {
+        OR: [{ name_contains_i: $search }, { description_contains_i: $search }]
+      }
+    ) {
+      id
+      name
+      description
+      photo {
+        image {
+          publicUrlTransformed
+        }
+      }
+    }
+  }
+`;

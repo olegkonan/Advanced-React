@@ -37,5 +37,5 @@ export function RemoveFromCart({ id }) {
 }
 
 RemoveFromCart.propTypes = {
-  id: PropTypes.number,
+  id: PropTypes.string,
 };

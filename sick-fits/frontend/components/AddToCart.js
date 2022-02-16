@@ -17,5 +17,5 @@ export function AddToCart({ id }) {
 }
 
 AddToCart.propTypes = {
-  id: PropTypes.number,
+  id: PropTypes.string,
 };
