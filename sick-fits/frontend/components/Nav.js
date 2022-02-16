@@ -6,8 +6,15 @@ import NavStyles from './styles/NavStyles';
 import { useUser } from './User';
 
 export default function Nav() {
+  console.log('nav rerender');
   const user = useUser();
   const { openCart } = useCart();
+
+  const cartCount =
+    user?.cart?.reduce(
+      (tally, cartItem) => tally + (cartItem.product ? cartItem.quantity : 0),
+      0
+    ) || 0;
 
   return (
     <NavStyles>
@@ -20,12 +27,7 @@ export default function Nav() {
           <SignOut />
           <button type="button" onClick={openCart}>
             My cart
-            <CartCount
-              count={user.cart.reduce(
-                (tally, cartItem) => tally + cartItem.quantity,
-                0
-              )}
-            />
+            <CartCount count={cartCount} />
           </button>
         </>
       ) : (

@@ -3,8 +3,11 @@ import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import { useState } from 'react';
 import nProgress from 'nprogress';
 import { useMutation } from '@apollo/client';
+import { useRouter } from 'next/dist/client/router';
 import SickButton from './styles/SickButton';
 import { CREATE_ORDER_MUTATION } from '../graphql/mutations';
+import { useCart } from '../lib/cartState';
+import { CURRENT_USER_QUERY } from '../graphql/queries';
 
 const CheckoutFormStyles = styled.form`
   box-shadow: 0 1px 2px 2px rgba(0, 0, 0, 0.04);
@@ -16,15 +19,17 @@ const CheckoutFormStyles = styled.form`
 `;
 
 export function CheckoutForm() {
+  const { closeCart } = useCart();
+  const router = useRouter();
   const stripe = useStripe();
   const elements = useElements();
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [checkout, { error: gqlError }] = useMutation(CREATE_ORDER_MUTATION);
+  const [checkout, { error: gqlError }] = useMutation(CREATE_ORDER_MUTATION, {
+    refetchQueries: [{ query: CURRENT_USER_QUERY }],
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
     nProgress.start();
     const { paymentMethod, error } = await stripe.createPaymentMethod({
       type: 'card',
@@ -39,9 +44,11 @@ export function CheckoutForm() {
           token: paymentMethod.id,
         },
       });
-      console.log(order);
+      closeCart();
+      router.push({
+        pathname: `/order/${order.data.checkout.id}`,
+      });
     }
-    setLoading(false);
     nProgress.done();
   };
 
