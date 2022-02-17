@@ -112,3 +112,28 @@ export const SINGLE_ORDER_QUERY = gql`
     }
   }
 `;
+
+export const USER_ORDERS_QUERY = gql`
+  query {
+    allOrders {
+      id
+      charge
+      total
+      user {
+        id
+      }
+      items {
+        id
+        name
+        description
+        price
+        quantity
+        photo {
+          image {
+            publicUrlTransformed
+          }
+        }
+      }
+    }
+  }
+`;

@@ -15,7 +15,6 @@ export default function SingleOrderPage({ query }) {
   if (error) return <DisplayError error={error} />;
 
   const { order } = data;
-  console.log(order);
 
   return (
     <OrderStyles>
