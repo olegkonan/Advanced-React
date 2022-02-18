@@ -1,4 +1,5 @@
 import { useMutation } from '@apollo/client';
+import { useRouter } from 'next/dist/client/router';
 import { SIGNIN_MUTATION } from '../graphql/mutations';
 import { CURRENT_USER_QUERY } from '../graphql/queries';
 import useFrom from '../lib/useForm';
@@ -6,6 +7,7 @@ import Form from './styles/Form';
 import DisplayError from './ErrorMessage';
 
 export default function SignIn() {
+  const router = useRouter();
   const { inputs, handleChange, resetFrom } = useFrom({
     email: '',
     password: '',
@@ -19,6 +21,7 @@ export default function SignIn() {
     e.preventDefault();
     await signin();
     resetFrom();
+    router.push('/products');
   };
 
   const error =

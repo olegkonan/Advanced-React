@@ -21,17 +21,33 @@ export const permissions = { ...generatedPermissions };
 
 export const rules = {
   canManageProducts({ session }: ListAccessArgs) {
-    if (permissions.canManageProducts({ session })) {
-      return true;
-    }
+    if (!isSignedIn({ session })) return false;
+    if (permissions.canManageProducts({ session })) return true;
 
     return { user: { id: session.itemId } };
   },
+  canOrder({ session }: ListAccessArgs) {
+    if (!isSignedIn({ session })) return false;
+    if (permissions.canManageCart({ session })) return true;
+
+    return { user: { id: session.itemId } };
+  },
+  canManageOrderItems({ session }: ListAccessArgs) {
+    if (!isSignedIn({ session })) return false;
+    if (permissions.canManageCart({ session })) return true;
+
+    return { order: { user: { id: session.itemId } } };
+  },
   canReadProducts({ session }: ListAccessArgs) {
-    if (permissions.canManageProducts({ session })) {
-      return true;
-    }
+    if (!isSignedIn({ session })) return false;
+    if (permissions.canManageProducts({ session })) return true;
 
     return { status: 'AVALIABLE' };
+  },
+  canManageUsers({ session }: ListAccessArgs) {
+    if (!isSignedIn({ session })) return false;
+    if (permissions.canManageUsers({ session })) return true;
+
+    return { id: session.itemId };
   },
 };
