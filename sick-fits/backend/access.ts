@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { permissionsList } from './schemas/fields';
 import { ListAccessArgs } from './types';
 
@@ -16,3 +18,20 @@ const generatedPermissions = Object.fromEntries(
 );
 
 export const permissions = { ...generatedPermissions };
+
+export const rules = {
+  canManageProducts({ session }: ListAccessArgs) {
+    if (permissions.canManageProducts({ session })) {
+      return true;
+    }
+
+    return { user: { id: session.itemId } };
+  },
+  canReadProducts({ session }: ListAccessArgs) {
+    if (permissions.canManageProducts({ session })) {
+      return true;
+    }
+
+    return { status: 'AVALIABLE' };
+  },
+};
